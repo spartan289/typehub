@@ -26,8 +26,11 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "match-sorter": "^6.3.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-contenteditable": "^3.3.6",
+    "react-dom": "^17.0.1",
+    "react-test-renderer": "^18.0.0"
   },
   "browserslist": [
     "last 2 Chrome versions"

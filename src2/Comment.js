@@ -1,4 +1,5 @@
 import reactDom from "react-dom";
+import { useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
@@ -26,19 +27,20 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { async } from "@firebase/util";
+import React from "react";
 
 document.addEventListener("submit", (e) => {
   e.preventDefault();
   comment_submit();
 });
 
-function comment_submit() {
+async function comment_submit() {
   let comment_form = new FormData(document.getElementById("comment_form"));
   let comment_content = comment_form.get("comment_content");
   let user_name = comment_form.get("user_name");
   console.log(comment_content);
   try {
-    const docRef = addDoc(
+    const docRef = await addDoc(
       collection(db, "/comment/o8rL7lTffHjOct7Vg2jH/comm/"),
       {
         comm_content: comment_content,
@@ -79,13 +81,43 @@ async function getcomment(db) {
   });
   return comment_document;
 }
-(async () => {
-  comment_document = await getcomment(db).then((comment_document) => {
-    console.log(comment_document);
-  });
-  console.log(comment_document);
-})();
+const Full_Comment = () => {
+  const [comment_datajsx, setval] = useState([]);
+  const Comment = async () => {
+    comment_document = await getcomment(db).then((comment_document) => {
+      let c = 0;
+      console.log(comment_document);
+      let comment_datajsx = [];
+      comment_document.forEach((doc) => {
+        let doc_data = doc.data();
+        comment_datajsx.push(doc_data);
+        console.log(doc.data());
+        c = c + 1;
+        console.log(comment_datajsx);
+      });
+      setval(comment_datajsx);
+      // var json_fullcommentbox = JSON.stringify(comment_datajsx);
+    });
+  };
 
+  useEffect(() => {
+    Comment();
+    console.log(comment_datajsx);
+  }, []);
+  console.log(comment_datajsx);
+  let jsxcomment = comment_datajsx.map((comment_data, index) => (
+    <div key={index}>
+      <Single_comment
+        comm_content={comment_data.comm_content}
+        comm_userid={comment_data.comm_userid}
+      />
+    </div>
+  ));
+  return <div>{jsxcomment}</div>;
+  // console.log(comment_document);
+};
+
+// console.log(comment_json);
 const Reply = ({ reply_content, reply_user }) => {
   return (
     <div className="card card-inner">
@@ -172,14 +204,15 @@ const Single_comment = ({ comm_userid, comm_content }) => {
               </p>
             </div>
           </div>
+
           <Reply reply_content={"hello world"} reply_user={"akash"} />
         </div>
+        a{" "}
       </div>
     </div>
   );
 };
-
-// const Comment = async (comment_document) => {
+// const Comment = (comment_document) => {
 //   console.log(comment_document);
 //   comment_document.forEach((doc) => {
 //     let doc_data = doc.data();
@@ -193,8 +226,10 @@ const Single_comment = ({ comm_userid, comm_content }) => {
 //     );
 //   });
 // };
+reactDom.render(<Full_Comment />, document.getElementById("comment_read"));
 
-// reactDom.render(
-//   <Comment comment_document={comment_document} />,
-//   document.getElementById("comment_read")
-// );
+// class Comment extends React.Component {
+//   render() {
+//     return <div></div>;
+//   }
+// }

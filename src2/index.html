@@ -14,29 +14,37 @@
     <link rel="stylesheet" href="assets/css/Community-ChatComments.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Adopt me</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div id="root">not rendered</div>
 
-    <div id="root_com">not rendered</div>
-    <div id="comment_write">
+    <!-- <div id="root_com">not rendered</div> -->
+    <!-- <div id="comment_write">
         <form id="comment_form">
             <input type="text" name="user_name">
             <input type="textarea" name="comment_content">
             <input type="submit" id="submit_b" value="submit">
         </form>
     </div>
-    <div id="comment_read">
+    <div id="comment_read"> -->
 
-    </div>
+    <!-- </div> -->
     <script src="App.js">
     </script>
-
-    <script src="Comment.js"></script>
-    <script src="comment2.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('subartl').addEventListener('click', function (e) {
+            e.preventDefault();
+            var editable_elements = document.querySelectorAll("[contenteditable=true]");
+            for (var i = 0; i < editable_elements.length; i++) {
+                editable_elements[i].removeAttribute("contenteditable");
+            }
+        });
+    </script>
+    <!-- <script src="Comment.js"></script>
+    <script src="comment2.js"></script> -->
+    <!-- <script src="assets/bootstrap/js/bootstrap.min.js"></script> -->
 
 </body>
 

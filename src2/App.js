@@ -1,18 +1,28 @@
-const el = 3;
+import React from "react";
 import ReactDOM from "react-dom";
-import EditalbleBlock from "./editabkeblock";
-const onKeyUp = (e) => {
-  if (e.keyCode == 13) {
-    return <EditalbleBlock />;
-  }
-};
-const App = () => {
-  var row = [];
-  for (let i = 0; i < 3; i++) {
-    row.push(<EditalbleBlock key={i} />);
-  }
+import reactTestRenderer from "react-test-renderer";
 
-  return <div>{row}</div>;
-};
+import EditablePage from "./editablePage";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const rootElement = document.getElementById("root");
+console.log(rootElement);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <h1 className="Logo">Typehub Article Writer</h1>
+    <p className="Intro">
+      Helloo{" "}
+      <span role="img" aria-label="greetings" className="Emoji">
+        👋
+      </span>{" "}
+      You can add content below. Type <span className="Code">/</span> to see
+      available elements.
+    </p>
+
+    <EditablePage />
+    <button className="btn btn-primary" id="subartl" type="submit">
+      Submit Article
+    </button>
+  </React.StrictMode>,
+  rootElement
+);
