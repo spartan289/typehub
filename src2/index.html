@@ -15,23 +15,100 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Adopt me</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .title {
+            color: grey;
+            font-size: 18px;
+        }
+
+        button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+
+        button:hover,
+        a:hover {
+            opacity: 0.7;
+        }
+
+        form {
+            border: 3px solid #f1f1f1;
+
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type=textarea] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 
 <body>
     <div id="root">not rendered</div>
 
-    <!-- <div id="root_com">not rendered</div> -->
-    <!-- <div id="comment_write">
+    <div id="root_com">not rendered</div> -->
+    <div id="comment_write">
+
+
         <form id="comment_form">
-            <input type="text" name="user_name">
-            <input type="textarea" name="comment_content">
-            <input type="submit" id="submit_b" value="submit">
+
+
+            <div class="form-group">
+                <label for="user_name">Name</label>
+                <input type="text" name="user_name" id="user_name">
+                <br>
+                <label for="comment_content">Comment</label>
+                <textarea class="form-control" id="comment_content" rows="3"></textarea>
+                <input type="submit" id="submit_b" value="submit">
+            </div>
         </form>
     </div>
-    <div id="comment_read"> -->
-
-    <!-- </div> -->
+    <div id="comment_read">
+        not rendered
+    </div>
     <script src="App.js">
+
+    </script>
+    <script src="Comment.js">
+
     </script>
     <script>
         document.getElementById('subartl').addEventListener('click', function (e) {

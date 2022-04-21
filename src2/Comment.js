@@ -36,24 +36,37 @@ document.addEventListener("submit", (e) => {
 
 async function comment_submit() {
   let comment_form = new FormData(document.getElementById("comment_form"));
-  let comment_content = comment_form.get("comment_content");
+  let comment_content = String(
+    document.getElementById("comment_content").value
+  );
   let user_name = comment_form.get("user_name");
   console.log(comment_content);
-  try {
-    const docRef = await addDoc(
-      collection(db, "/comment/o8rL7lTffHjOct7Vg2jH/comm/"),
-      {
-        comm_content: comment_content,
-        comm_userid: user_name,
-        comm_date: new Date(),
-        comm_like: 0,
-        comm_dislike: 0,
-        comm_id: "sdfsdf",
-      }
+  if (
+    comment_content.length > 0 &&
+    user_name.length > 0 &&
+    comment_content.length <= 500 &&
+    user_name.length <= 20
+  ) {
+    try {
+      const docRef = await addDoc(
+        collection(db, "/comment/o8rL7lTffHjOct7Vg2jH/comm/"),
+        {
+          comm_content: comment_content,
+          comm_userid: user_name,
+          comm_date: new Date(),
+          comm_like: 0,
+          comm_dislike: 0,
+          comm_id: "sdfsdf",
+        }
+      );
+      console.log("Document written with ID: ", docRef);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  } else {
+    alert(
+      "Entered comment is too long or too short or user name is too long or too short"
     );
-    console.log("Document written with ID: ", docRef);
-  } catch (error) {
-    console.error("Error adding document: ", error);
   }
 }
 
@@ -62,16 +75,16 @@ function getd() {
   console.log(doc1.data);
 }
 // get all data
-// async function getAllData(db) {
-//   const doc1 = await getDocs(
-//     collection(db, "/comment/o8rL7lTffHjOct7Vg2jH/comm/")
-//   );
-//   console.log(doc1);
-//   doc1.forEach((doc) => {
-//     console.log(doc.data());
-//   });
-// }
-// getAllData(db);
+async function getAllData(db) {
+  const doc1 = await getDocs(
+    collection(db, "/comment/o8rL7lTffHjOct7Vg2jH/comm/")
+  );
+  console.log(doc1);
+  doc1.forEach((doc) => {
+    console.log(doc.data());
+  });
+}
+getAllData(db);
 var comment_document;
 async function getcomment(db) {
   const article_document = await getDocs(collection(db, "/comment"));
@@ -119,41 +132,7 @@ const Full_Comment = () => {
 
 // console.log(comment_json);
 const Reply = ({ reply_content, reply_user }) => {
-  return (
-    <div className="card card-inner">
-      <div className="card-body">
-        <div className="row">
-          <div className="col-md-2">
-            <img
-              src="https://image.ibb.co/jw55Ex/def_face.jpg"
-              className="img img-rounded img-fluid"
-            />
-            <p className="text-secondary text-center">15 Minutes Ago</p>
-          </div>
-          <div className="col-md-10">
-            <p>
-              <a href="https://maniruzzaman-akash.blogspot.com/p/contact.html">
-                <strong>{reply_user}</strong>
-              </a>
-            </p>
-            <p>{reply_content}</p>
-            <p>
-              <a className="float-right btn btn-outline-primary ml-2">
-                {" "}
-                <i className="fa fa-reply"></i>
-                Reply
-              </a>
-              <a className="float-right btn text-white btn-danger">
-                {" "}
-                <i className="fa fa-heart"></i>
-                Like
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <div></div>;
 };
 
 const Single_comment = ({ comm_userid, comm_content }) => {
@@ -212,20 +191,20 @@ const Single_comment = ({ comm_userid, comm_content }) => {
     </div>
   );
 };
-// const Comment = (comment_document) => {
-//   console.log(comment_document);
-//   comment_document.forEach((doc) => {
-//     let doc_data = doc.data();
-//     comment_userid = doc_data.comm_userid;
-//     comment_content = doc_data.comm_content;
-//     return (
-//       <Single_comment
-//         comm_content={comment_content}
-//         comm_userid={comment_userid}
-//       />
-//     );
-//   });
-// };
+const Comment = (comment_document) => {
+  console.log(comment_document);
+  comment_document.forEach((doc) => {
+    let doc_data = doc.data();
+    comment_userid = doc_data.comm_userid;
+    comment_content = doc_data.comm_content;
+    return (
+      <Single_comment
+        comm_content={comment_content}
+        comm_userid={comment_userid}
+      />
+    );
+  });
+};
 reactDom.render(<Full_Comment />, document.getElementById("comment_read"));
 
 // class Comment extends React.Component {
